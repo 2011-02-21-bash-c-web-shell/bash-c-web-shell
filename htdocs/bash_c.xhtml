@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html:html xmlns:html="http://www.w3.org/1999/xhtml">
+    <html:head>
+        <html:title>bash -c &lt;...&gt;</html:title>
+        <html:style>
+            <![CDATA[
+	            @namespace html "http://www.w3.org/1999/xhtml";
+	            
+	            html|html {
+		            height: 100%;
+	            }
+	            
+	            html|body {
+		            height: 100%;
+		            margin: 0;
+	            }
+            ]]>
+        </html:style>
+        <html:script src="bash_c_ui.js"></html:script>
+        <script_params:bash_c_params xmlns:script_params="/2011/02/19/bash_c_ui/params">
+            <script_params:bash_c_cgi_bin_url value="cgi-bin/bash_c" />
+            <script_params:bash_c_ui target_id="bash_c_ui" />
+        </script_params:bash_c_params>
+    </html:head>
+    <html:body>
+        <html:div id="bash_c_ui">[bash_c_ui: loading...]</html:div>
+        <html:pre id="debug_log" style="display: none"></html:pre>
+    </html:body>
+</html:html>
+

