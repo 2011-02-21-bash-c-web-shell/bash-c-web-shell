@@ -350,7 +350,7 @@
         
         this._history_node.appendChild(option_node)
         
-        // TODO: scrolling...
+        // TODO: scrolling... and sizing...
     }
     
     BashCUi.prototype._create_dir_node = function() {
