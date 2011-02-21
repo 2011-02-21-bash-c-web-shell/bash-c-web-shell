@@ -7,5 +7,5 @@ bash -c <...> # Web Shell
 Status
 ------
 
-Current status of project -- is *development* (not *mature* yet)
+Current status of project -- is *mature*
 
