@@ -196,18 +196,132 @@
         return v_box
     }
     
+    function create_inset_bin(elem) {
+        var table = document.createElementNS(html_ns, 'div')
+        
+        table.style.display = 'table'
+        table.style.width = '100%'
+        table.style.height = '100%'
+        
+        var row = document.createElementNS(html_ns, 'div')
+        
+        row.style.display = 'table-row'
+        
+        var cell = document.createElementNS(html_ns, 'div')
+        
+        cell.style.display = 'table-cell'
+        cell.style.border = '2px inset'
+        cell.style.borderRadius = '2px'
+        cell.style.height = '100%'
+        cell.appendChild(elem)
+        row.appendChild(cell)
+        table.appendChild(row)
+        
+        return table
+    }
+    
     function BashCUi() {
         this._history = []
+    }
+    
+    BashCUi.prototype._create_title_node = function() {
+        var title_node = document.createElementNS(html_ns, 'h1')
+        
+        title_node.style.margin = '0.5em'
+        title_node.appendChild(
+                document.createTextNode('bash -c <...> # Web Shell'))
+        
+        return title_node
+    }
+    
+    BashCUi.prototype._create_enter_key_button = function() {
+        var enter_key_button = document.createElementNS(html_ns, 'input')
+        
+        enter_key_button.type = 'button'
+        enter_key_button.value = 'Enter Key...'
+        
+        
+        // TODO: ...
+        
+        return enter_key_button
+    }
+    
+    BashCUi.prototype._create_clean_button = function() {
+        var clean_button = document.createElementNS(html_ns, 'input')
+        
+        clean_button.type = 'button'
+        clean_button.value = 'Clean History'
+        
+        
+        // TODO: ...
+        
+        return clean_button
+    }
+    
+    BashCUi.prototype._create_enter_cgi_bin_button = function() {
+        var enter_cgi_bin_button = document.createElementNS(html_ns, 'input')
+        
+        enter_cgi_bin_button.type = 'button'
+        enter_cgi_bin_button.value = 'Enter Other Cgi-Bin Script Url...'
+        
+        
+        // TODO: ...
+        
+        return enter_cgi_bin_button
+    }
+    
+    BashCUi.prototype._create_menu_node = function() {
+        var menu_node = document.createElementNS(html_ns, 'div')
+        
+        menu_node.style.margin = '0.5em'
+        
+        var label_node = document.createElementNS(html_ns, 'div')
+        
+        label_node.appendChild(
+                document.createTextNode('Menu:'))
+        menu_node.appendChild(label_node)
+        
+        var buttons_node = document.createElementNS(html_ns, 'div')
+        
+        buttons_node.appendChild(
+                this._create_enter_key_button())
+        buttons_node.appendChild(
+                document.createTextNode(' '))
+        buttons_node.appendChild(
+                this._create_clean_button())
+        buttons_node.appendChild(
+                document.createTextNode(' '))
+        buttons_node.appendChild(
+                this._create_enter_cgi_bin_button())
+        menu_node.appendChild(buttons_node)
+        
+        return menu_node
+    }
+    
+    BashCUi.prototype._create_history_node = function() {
+        var history_node = document.createElementNS(html_ns, 'select')
+        
+        history_node.multiple = true
+        history_node.style.border = '0'
+        history_node.style.width = '100%'
+        history_node.style.height = '100%'
+        
+        // TODO: ...
+        
+        return create_inset_bin(history_node)
     }
     
     BashCUi.prototype._create_root_node = function() {
         // TEST:
         var root_node = create_v_box(
             [
-                document.createTextNode('фигня'),
-                document.createTextNode('фииигггняяяя'),
+                this._create_title_node(),
+                document.createElementNS(html_ns, 'hr'),
+                this._create_menu_node(),
+                document.createElementNS(html_ns, 'hr'),
+                document.createTextNode('History:'),
             ],
-            document.createTextNode('center фигня'),
+            this._create_history_node(),
             [
                 document.createTextNode('b фигня'),
                 document.createTextNode('b фииигггняяяя'),
