@@ -235,11 +235,11 @@
     }
     
     BashCUi.prototype._create_enter_key_button = function() {
-        var enter_key_button = document.createElementNS(html_ns, 'input')
+        var enter_key_button = document.createElementNS(html_ns, 'a')
         
-        enter_key_button.type = 'button'
-        enter_key_button.value = 'Enter Key...'
-        
+        enter_key_button.href = '#'
+        enter_key_button.appendChild(
+                document.createTextNode('Enter Key...'))
         
         // TODO: ...
         
@@ -247,11 +247,11 @@
     }
     
     BashCUi.prototype._create_clean_button = function() {
-        var clean_button = document.createElementNS(html_ns, 'input')
+        var clean_button = document.createElementNS(html_ns, 'a')
         
-        clean_button.type = 'button'
-        clean_button.value = 'Clean History'
-        
+        clean_button.href = '#'
+        clean_button.appendChild(
+                document.createTextNode('Clean History'))
         
         // TODO: ...
         
@@ -259,11 +259,11 @@
     }
     
     BashCUi.prototype._create_enter_cgi_bin_button = function() {
-        var enter_cgi_bin_button = document.createElementNS(html_ns, 'input')
+        var enter_cgi_bin_button = document.createElementNS(html_ns, 'a')
         
-        enter_cgi_bin_button.type = 'button'
-        enter_cgi_bin_button.value = 'Enter Other Cgi-Bin Script Url...'
-        
+        enter_cgi_bin_button.href = '#'
+        enter_cgi_bin_button.appendChild(
+                document.createTextNode('Enter Other Cgi-Bin Script Url...'))
         
         // TODO: ...
         
@@ -284,13 +284,15 @@
         var buttons_node = document.createElementNS(html_ns, 'div')
         
         buttons_node.appendChild(
+                document.createTextNode(':: '))
+        buttons_node.appendChild(
                 this._create_enter_key_button())
         buttons_node.appendChild(
-                document.createTextNode(' '))
+                document.createTextNode(' :: '))
         buttons_node.appendChild(
                 this._create_clean_button())
         buttons_node.appendChild(
-                document.createTextNode(' '))
+                document.createTextNode(' :: '))
         buttons_node.appendChild(
                 this._create_enter_cgi_bin_button())
         menu_node.appendChild(buttons_node)
@@ -308,7 +310,8 @@
         
         // TODO: ...
         
-        return create_inset_bin(history_node)
+        //return create_inset_bin(history_node)
+        return history_node
     }
     
     BashCUi.prototype._create_dir_node = function() {
@@ -320,7 +323,8 @@
         
         // TODO: ...
         
-        return create_inset_bin(dir_node)
+        //return create_inset_bin(dir_node)
+        return dir_node
     }
     
     BashCUi.prototype._create_cmd_node = function() {
@@ -332,7 +336,8 @@
         
         // TODO: ...
         
-        return create_inset_bin(cmd_node)
+        //return create_inset_bin(cmd_node)
+        return cmd_node
     }
     
     BashCUi.prototype._create_root_node = function() {
@@ -349,7 +354,7 @@
             [
                 document.createTextNode('Work Dir:'),
                 this._create_dir_node(),
-                document.createTextNode('Command'),
+                document.createTextNode('Command:'),
                 this._create_cmd_node(),
             ]
         )
