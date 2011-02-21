@@ -196,30 +196,6 @@
         return v_box
     }
     
-    function create_inset_bin(elem) {
-        var table = document.createElementNS(html_ns, 'div')
-        
-        table.style.display = 'table'
-        table.style.width = '100%'
-        table.style.height = '100%'
-        
-        var row = document.createElementNS(html_ns, 'div')
-        
-        row.style.display = 'table-row'
-        
-        var cell = document.createElementNS(html_ns, 'div')
-        
-        cell.style.display = 'table-cell'
-        cell.style.border = '2px inset'
-        cell.style.borderRadius = '2px'
-        cell.style.height = '100%'
-        cell.appendChild(elem)
-        row.appendChild(cell)
-        table.appendChild(row)
-        
-        return table
-    }
-    
     function BashCUi() {
         this._history = []
     }
@@ -247,13 +223,31 @@
     }
     
     BashCUi.prototype._create_clean_button = function() {
+        function perform(evt) {
+            evt.preventDefault()
+            
+            var to_delete = []
+            
+            func_tools.node_iterate(this._history_node,
+                    function(node) {
+                        to_delete.push(node)
+                    })
+            
+            func_tools.list_iterate(to_delete,
+                    function(i, v) {
+                        this._history_node.removeChild(v)
+                    })
+            
+            this._history = []
+        }
+        
         var clean_button = document.createElementNS(html_ns, 'a')
         
         clean_button.href = '#'
         clean_button.appendChild(
                 document.createTextNode('Clean History'))
         
-        // TODO: ...
+        clean_button.addEventListener('click', func_tools.func_bind(perform, this), true)
         
         return clean_button
     }
@@ -310,8 +304,7 @@
         
         // TODO: ...
         
-        //return create_inset_bin(history_node)
-        return history_node
+        this._history_node = history_node
     }
     
     BashCUi.prototype._create_dir_node = function() {
@@ -323,8 +316,7 @@
         
         // TODO: ...
         
-        //return create_inset_bin(dir_node)
-        return dir_node
+        this._dir_node = dir_node
     }
     
     BashCUi.prototype._create_cmd_node = function() {
@@ -336,12 +328,14 @@
         
         // TODO: ...
         
-        //return create_inset_bin(cmd_node)
-        return cmd_node
+        this._cmd_node = cmd_node
     }
     
     BashCUi.prototype._create_root_node = function() {
-        // TEST:
+        this._create_history_node()
+        this._create_dir_node()
+        this._create_cmd_node()
+        
         var root_node = create_v_box(
             [
                 this._create_title_node(),
@@ -350,22 +344,22 @@
                 document.createElementNS(html_ns, 'hr'),
                 document.createTextNode('History:'),
             ],
-            this._create_history_node(),
+            this._history_node,
             [
                 document.createTextNode('Work Dir:'),
-                this._create_dir_node(),
+                this._dir_node,
                 document.createTextNode('Command:'),
-                this._create_cmd_node(),
+                this._cmd_node,
             ]
         )
         
-        return root_node
+        this._root_node = root_node
     }
     
     BashCUi.prototype.init = function(bash_c_cgi_bin_url) {
         this._bash_c_cgi_bin_url = bash_c_cgi_bin_url
         
-        this._root_node = this._create_root_node()
+        this._create_root_node()
     }
     
     function new_bash_c_ui(bash_c_cgi_bin_url) {
