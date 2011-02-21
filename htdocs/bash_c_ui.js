@@ -251,17 +251,9 @@
         function perform(evt) {
             evt.preventDefault()
             
-            var to_delete = []
-            
-            func_tools.node_iterate(this._history_node,
-                    function(node) {
-                        to_delete.push(node)
-                    })
-            
-            func_tools.list_iterate(to_delete,
-                    func_tools.func_bind(function(i, v) {
-                        this._history_node.removeChild(v)
-                    }, this))
+            while(this._history_node.length > 0) {
+                this._history_node.remove(this._history_node.length - 1)
+            }
             
             this._history = {}
         }
@@ -347,11 +339,10 @@
         
         var option_node = document.createElementNS(html_ns, 'option')
         option_node.appendChild(
-                document.createTextNode(full_cmd))
+            document.createTextNode(full_cmd))
+        this._history_node.add(option_node, null)
         
-        this._history_node.appendChild(option_node)
-        
-        // TODO: scrolling... and sizing...
+        // TODO: scrolling...
     }
     
     BashCUi.prototype._create_dir_node = function() {
