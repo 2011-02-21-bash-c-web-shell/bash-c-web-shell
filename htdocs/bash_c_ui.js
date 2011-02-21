@@ -205,7 +205,7 @@
     
     function BashCUi() {
         this._key = ''
-        this._history = []
+        this._history = {}
     }
     
     BashCUi.prototype._create_title_node = function() {
@@ -263,7 +263,7 @@
                         this._history_node.removeChild(v)
                     })
             
-            this._history = []
+            this._history = {}
         }
         
         clean_button.addEventListener(
@@ -338,6 +338,19 @@
         this._history_node = history_node
     }
     
+    BashCUi.prototype._update_history = function(dir, cmd, full_cmd) {
+        this._history[full_cmd] = {
+            dir: dir,
+            cmd: cmd,
+        }
+        
+        var option_node = document.createElementNS(html_ns, 'option')
+        option_node.appendChild(
+                document.createTextNode(full_cmd))
+        
+        this._history_node.appendChild(option_node)
+    }
+    
     BashCUi.prototype._create_dir_node = function() {
         var dir_node = document.createElementNS(html_ns, 'input')
         
@@ -379,6 +392,7 @@
                     
                     open(exec_url, '_blank')
                     
+                    this._update_history(dir, cmd, full_cmd)
                     this._cmd_node.value = ''
                 }
             }
