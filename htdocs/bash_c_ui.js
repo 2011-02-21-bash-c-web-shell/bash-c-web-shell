@@ -213,11 +213,18 @@
     BashCUi.prototype._create_enter_key_button = function() {
         var enter_key_button = document.createElementNS(html_ns, 'a')
         
+        function perform(evt) {
+            evt.preventDefault()
+            
+            
+        }
+        
         enter_key_button.href = '#'
         enter_key_button.appendChild(
                 document.createTextNode('Enter Key...'))
         
-        // TODO: ...
+        enter_key_button.addEventListener(
+                'click', func_tools.func_bind(perform, this), false)
         
         return enter_key_button
     }
@@ -247,7 +254,8 @@
         clean_button.appendChild(
                 document.createTextNode('Clean History'))
         
-        clean_button.addEventListener('click', func_tools.func_bind(perform, this), true)
+        clean_button.addEventListener(
+                'click', func_tools.func_bind(perform, this), false)
         
         return clean_button
     }
