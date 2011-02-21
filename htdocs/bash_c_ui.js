@@ -70,18 +70,31 @@
                 return bound
             }
         },
+        StopIteration: function() {},
         list_iterate: function(l, iter) {
-            for(var i = 0; i < l.length; ++i) {
-                var v = l[i];
-                
-                iter(i, v)
+            try {
+                for(var i = 0; i < l.length; ++i) {
+                    var v = l[i];
+                    
+                    iter(i, v)
+                }
+            } catch(e) {
+                if(!(e instanceof this.StopIteration)) {
+                    throw e
+                }
             }
         },
         node_iterate: function(n, iter) {
-            for(var in_n = n.firstChild;
-                    in_n;
-                    in_n = in_n.nextSibling) {
-                iter(in_n)
+            try {
+                for(var in_n = n.firstChild;
+                        in_n;
+                        in_n = in_n.nextSibling) {
+                    iter(in_n)
+                }
+            } catch(e) {
+                if(!(e instanceof this.StopIteration)) {
+                    throw e
+                }
             }
         },
     }
@@ -326,7 +339,32 @@
         history_node.style.width = '100%'
         history_node.style.height = '100%'
         
-        // TODO: ...
+        function perform(evt) {
+            for(var i = 0; this._history_node.length; ++i) {
+                if(this._history_node.options[i].selected) {
+                    var full_cmd = this._history_node.options[i].value
+                    var dir = this._history[full_cmd].dir
+                    var cmd = this._history[full_cmd].cmd
+                    
+                    if(dir) {
+                        this._dir_node.value = dir
+                    } else {
+                        this._dir_node.value = ''
+                    }
+                    
+                    if(cmd) {
+                        this._cmd_node.value = cmd
+                    } else {
+                        this._cmd_node.value = ''
+                    }
+                    
+                    break
+                }
+            }
+        }
+        
+        history_node.addEventListener(
+                'change', func_tools.func_bind(perform, this), false)
         
         this._history_node = history_node
     }
@@ -338,8 +376,8 @@
         }
         
         var option_node = document.createElementNS(html_ns, 'option')
-        option_node.appendChild(
-            document.createTextNode(full_cmd))
+        option_node.text = full_cmd
+        option_node.value = full_cmd
         this._history_node.add(option_node, null)
         
         // TODO: scrolling...
