@@ -21,7 +21,7 @@ echo
 
 enable=0
 . "$0.conf"
-if [ "$enable" = "" ] || [ "$enable" = "0" ]
+if [ $[enable] = 0 ]
 then
     exit 1
 fi
