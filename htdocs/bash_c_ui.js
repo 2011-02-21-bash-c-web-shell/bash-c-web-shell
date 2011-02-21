@@ -259,9 +259,9 @@
                     })
             
             func_tools.list_iterate(to_delete,
-                    function(i, v) {
+                    func_tools.func_bind(function(i, v) {
                         this._history_node.removeChild(v)
-                    })
+                    }, this))
             
             this._history = {}
         }
@@ -349,6 +349,8 @@
                 document.createTextNode(full_cmd))
         
         this._history_node.appendChild(option_node)
+        
+        // TODO: scrolling...
     }
     
     BashCUi.prototype._create_dir_node = function() {
