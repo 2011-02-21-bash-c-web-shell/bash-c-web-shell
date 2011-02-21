@@ -19,12 +19,12 @@
 echo "Content-Type: text/plain;charset=utf-8"
 echo 
 
-# BEGIN CONFIGURATION
+. "$0.conf"
 
-key="hack_me"
-strip_slashes=1
-
-# END CONFIGURATION
+if [ "$enable" = "" ] || [ "$enable" = "0" ]
+then
+    exit 1
+fi
 
 quote () 
 {
@@ -47,14 +47,14 @@ if [ "$key" = "" ] || [ "$PATH_INFO" != "/key/$key" ]
 then
     echo "*** Invalid Key ***"
     
-    exit
+    exit 1
 fi
 
 if [ "$#" != "0" ] && [ "$#" != "1" ]
 then
     echo "*** Invalid Arguments ***"
     
-    exit
+    exit 1
 fi
 
 if [ "$strip_slashes" != "" ] && [ "$strip_slashes" != "0" ]
