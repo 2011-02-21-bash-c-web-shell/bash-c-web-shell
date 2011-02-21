@@ -311,6 +311,30 @@
         return create_inset_bin(history_node)
     }
     
+    BashCUi.prototype._create_dir_node = function() {
+        var dir_node = document.createElementNS(html_ns, 'input')
+        
+        dir_node.type = 'text'
+        dir_node.style.border = '0'
+        dir_node.style.width = '100%'
+        
+        // TODO: ...
+        
+        return create_inset_bin(dir_node)
+    }
+    
+    BashCUi.prototype._create_cmd_node = function() {
+        var cmd_node = document.createElementNS(html_ns, 'input')
+        
+        cmd_node.type = 'text'
+        cmd_node.style.border = '0'
+        cmd_node.style.width = '100%'
+        
+        // TODO: ...
+        
+        return create_inset_bin(cmd_node)
+    }
+    
     BashCUi.prototype._create_root_node = function() {
         // TEST:
         var root_node = create_v_box(
@@ -323,8 +347,10 @@
             ],
             this._create_history_node(),
             [
-                document.createTextNode('b фигня'),
-                document.createTextNode('b фииигггняяяя'),
+                document.createTextNode('Work Dir:'),
+                this._create_dir_node(),
+                document.createTextNode('Command'),
+                this._create_cmd_node(),
             ]
         )
         
