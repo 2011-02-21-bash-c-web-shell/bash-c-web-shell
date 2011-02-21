@@ -197,6 +197,7 @@
     }
     
     function BashCUi() {
+        this._key = ''
         this._history = []
     }
     
@@ -213,15 +214,19 @@
     BashCUi.prototype._create_enter_key_button = function() {
         var enter_key_button = document.createElementNS(html_ns, 'a')
         
-        function perform(evt) {
-            evt.preventDefault()
-            
-            
-        }
-        
         enter_key_button.href = '#'
         enter_key_button.appendChild(
                 document.createTextNode('Enter Key...'))
+        
+        function perform(evt) {
+            evt.preventDefault()
+            
+            var result = prompt(
+                    'Enter Key:', this._key)
+            if(result !== null) {
+                this._key = result
+            }
+        }
         
         enter_key_button.addEventListener(
                 'click', func_tools.func_bind(perform, this), false)
@@ -231,6 +236,10 @@
     
     BashCUi.prototype._create_clean_button = function() {
         var clean_button = document.createElementNS(html_ns, 'a')
+        
+        clean_button.href = '#'
+        clean_button.appendChild(
+                document.createTextNode('Clean History'))
         
         function perform(evt) {
             evt.preventDefault()
@@ -250,10 +259,6 @@
             this._history = []
         }
         
-        clean_button.href = '#'
-        clean_button.appendChild(
-                document.createTextNode('Clean History'))
-        
         clean_button.addEventListener(
                 'click', func_tools.func_bind(perform, this), false)
         
@@ -267,7 +272,18 @@
         enter_cgi_bin_button.appendChild(
                 document.createTextNode('Enter Other Cgi-Bin Script Url...'))
         
-        // TODO: ...
+        function perform(evt) {
+            evt.preventDefault()
+            
+            var result = prompt(
+                    'Enter Other Cgi-Bin Script Url:', this._bash_c_cgi_bin_url)
+            if(result !== null) {
+                this._bash_c_cgi_bin_url = result
+            }
+        }
+        
+        enter_cgi_bin_button.addEventListener(
+                'click', func_tools.func_bind(perform, this), false)
         
         return enter_cgi_bin_button
     }
