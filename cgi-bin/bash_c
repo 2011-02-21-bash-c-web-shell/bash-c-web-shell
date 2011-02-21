@@ -50,14 +50,14 @@ then
     exit 1
 fi
 
-if [ "$#" != "0" ] && [ "$#" != "1" ]
+if [ $# != 0 ] && [ $# != 1 ]
 then
     echo "*** Invalid Arguments ***"
     
     exit 1
 fi
 
-if [ "$strip_slashes" != "" ] && [ "$strip_slashes" != "0" ]
+if [ $[strip_slashes] != 0 ]
 then
     cmd="$(strip_slashes "$1")"
 else
