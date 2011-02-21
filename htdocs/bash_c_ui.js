@@ -329,6 +329,7 @@
         var history_node = document.createElementNS(html_ns, 'select')
         
         history_node.multiple = true
+        history_node.size = 2
         history_node.style.border = '0'
         history_node.style.width = '100%'
         history_node.style.height = '100%'
