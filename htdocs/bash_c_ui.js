@@ -223,6 +223,8 @@
     }
     
     BashCUi.prototype._create_clean_button = function() {
+        var clean_button = document.createElementNS(html_ns, 'a')
+        
         function perform(evt) {
             evt.preventDefault()
             
@@ -240,8 +242,6 @@
             
             this._history = []
         }
-        
-        var clean_button = document.createElementNS(html_ns, 'a')
         
         clean_button.href = '#'
         clean_button.appendChild(
@@ -313,8 +313,6 @@
         dir_node.type = 'text'
         dir_node.style.border = '0'
         dir_node.style.width = '100%'
-        
-        // TODO: ...
         
         this._dir_node = dir_node
     }
