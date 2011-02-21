@@ -66,10 +66,16 @@ fi
 
 if [ "$cmd" != "" ]
 then
-    cd
+    if [ $[niceness] != 0 ]
+    then
+        bash_wrap=("nice" "-n" $[niceness] "bash")
+    else
+        bash_wrap=("bash")
+    fi
     
     echo "*** begin ***: $(quote "$cmd")"
-    bash -c "$cmd" 2>&1
+    cd
+    "${bash_wrap[@]}" -c "$cmd" 2>&1
     echo "*** end ***"
 else
     echo "*** nothing to do ***"
