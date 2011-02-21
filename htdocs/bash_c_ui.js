@@ -264,8 +264,8 @@
         function perform(evt) {
             evt.preventDefault()
             
-            while(this._history_node.length > 0) {
-                this._history_node.remove(this._history_node.length - 1)
+            while(this._history_node.length > 1) {
+                this._history_node.remove(this._history_node.length - 2)
             }
             
             this._history = {}
@@ -339,8 +339,14 @@
         history_node.style.width = '100%'
         history_node.style.height = '100%'
         
+        var last_option_node = document.createElementNS(html_ns, 'option')
+        last_option_node.text = '<END_OF_HISTORY>'
+        last_option_node.value = '<END_OF_HISTORY>'
+        last_option_node.selected = true
+        history_node.add(last_option_node, null)
+        
         function perform(evt) {
-            for(var i = 0; this._history_node.length; ++i) {
+            for(var i = 0; i < this._history_node.length - 1; ++i) {
                 if(this._history_node.options[i].selected) {
                     var full_cmd = this._history_node.options[i].value
                     var dir = this._history[full_cmd].dir
@@ -367,6 +373,7 @@
                 'change', func_tools.func_bind(perform, this), false)
         
         this._history_node = history_node
+        this._last_option_node = last_option_node
     }
     
     BashCUi.prototype._update_history = function(dir, cmd, full_cmd) {
@@ -378,7 +385,7 @@
         var option_node = document.createElementNS(html_ns, 'option')
         option_node.text = full_cmd
         option_node.value = full_cmd
-        this._history_node.add(option_node, null)
+        this._history_node.add(option_node, this._last_option_node)
         
         // TODO: scrolling...
     }
