@@ -148,6 +148,13 @@
         return h_box
     }
     
+    function shell_quote(str) {
+        var result =
+            '\'' + new String(str).replace('\'', '\'\\\'\'') + '\''
+        
+        return result
+    }
+    
     function create_v_box(top_elems, center_elem, bottom_elems) {
         var v_box = document.createElementNS(html_ns, 'div')
         
@@ -348,7 +355,37 @@
         cmd_node.style.border = '0'
         cmd_node.style.width = '100%'
         
-        // TODO: ...
+        function perform(evt) {
+            if(evt.keyCode == 13) {
+                evt.preventDefault()
+                
+                var dir =  this._dir_node.value
+                var cmd = this._cmd_node.value
+                if(cmd) {
+                    var full_cmd
+                    
+                    if(dir) {
+                        full_cmd =
+                                'cd ' + shell_quote(dir) +
+                                '; ' + cmd
+                    } else {
+                        full_cmd = cmd
+                    }
+                    
+                    var exec_url =
+                            this._bash_c_cgi_bin_url +
+                            '/key/' + this._key + '?' +
+                            encodeURIComponent(full_cmd)
+                    
+                    open(exec_url, '_blank')
+                    
+                    this._cmd_node.value = ''
+                }
+            }
+        }
+        
+        cmd_node.addEventListener(
+                'keypress', func_tools.func_bind(perform, this), false)
         
         this._cmd_node = cmd_node
     }
