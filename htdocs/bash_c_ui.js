@@ -1,18 +1,17 @@
-// This file is part of "bash -c <...> # Web Shell"
-// (see <https://github.com/2011-02-21-bash-c-web-shell/bash-c-web-shell>).
-//
-// "bash -c <...> # Web Shell" is free software: you can redistribute it and/or modify
+// -*- mode: javascript; coding: utf-8 -*-
+
+// This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// "bash -c <...> # Web Shell" is distributed in the hope that it will be useful,
+// This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with "bash -c <...> # Web Shell".  If not, see <http://www.gnu.org/licenses/>.
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function() {
     'use strict'

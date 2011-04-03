@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# -*- mode: bash; coding: utf-8 -*-
 
 # This file is part of "bash -c <...> # Web Shell"
 # (see <https://github.com/2011-02-21-bash-c-web-shell/bash-c-web-shell>).
@@ -73,7 +74,7 @@ then
         bash_wrap=("bash")
     fi
     
-    echo "*** begin ***: $(quote "$cmd")"
+    echo "*** begin ***: $cmd"
     cd
     "${bash_wrap[@]}" -c "$cmd" 2>&1
     echo "*** end ***"
@@ -82,4 +83,3 @@ else
 fi
 
 true
-
