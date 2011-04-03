@@ -16,6 +16,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+if [ ! "$HOME" ]
+then
+    export HOME=~
+fi
+
 echo "Content-Type: text/plain;charset=utf-8"
 echo 
 
@@ -74,11 +79,7 @@ then
     fi
     
     echo "*** begin ***: $cmd"
-    cd ~
-    if [ ! "$HOME" ]
-    then
-        export HOME="$(pwd)"
-    fi
+    cd "$HOME"
     "${bash_wrap[@]}" -c "$cmd" 2>&1
     echo "*** end ***"
 else
