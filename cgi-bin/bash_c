@@ -44,7 +44,7 @@ strip_slashes ()
     echo "$param"
 }
 
-if [ "$key" = "" ] || [ "$PATH_INFO" != "/key/$key" ]
+if [ ! "$key" ] || [ "$PATH_INFO" != "/key/$key" ]
 then
     echo "*** Invalid Key ***"
     
@@ -65,7 +65,7 @@ else
     cmd="$1"
 fi
 
-if [ "$cmd" != "" ]
+if [ "$cmd" ]
 then
     if [ $[niceness] != 0 ]
     then
@@ -75,7 +75,11 @@ then
     fi
     
     echo "*** begin ***: $cmd"
-    cd
+    cd ~
+    if [ ! "$HOME" ]
+    then
+        export HOME="$(pwd)"
+    fi
     "${bash_wrap[@]}" -c "$cmd" 2>&1
     echo "*** end ***"
 else

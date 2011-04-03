@@ -418,7 +418,7 @@
                     if(dir) {
                         full_cmd =
                                 'cd ' + shell_quote(dir) +
-                                '; ' + cmd
+                                ' && ' + cmd
                     } else {
                         full_cmd = cmd
                     }
