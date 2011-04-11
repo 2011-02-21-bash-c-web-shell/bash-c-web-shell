@@ -23,16 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <html:title>bash -c &lt;...&gt; # Web Shell</html:title>
         <html:style>
             <![CDATA[
-	            @namespace html "http://www.w3.org/1999/xhtml";
-	            
-	            html|html {
-		            height: 100%;
-	            }
-	            
-	            html|body {
-		            height: 100%;
-		            margin: 0;
-	            }
+                @namespace html "http://www.w3.org/1999/xhtml";
+                
+                html|html {
+                    height: 100%;
+                }
+                
+                html|body {
+                    height: 100%;
+                    margin: 0;
+                }
             ]]>
         </html:style>
         <html:script src="bash_c_ui.js"></html:script>
@@ -46,4 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <html:pre id="debug_log" style="display: none"></html:pre>
     </html:body>
 </html:html>
-
